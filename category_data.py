@@ -9,15 +9,15 @@ from keras.preprocessing import image   # for preprocessing the images
 Traindata_Path="D:\大學專題\洗手實做\Traindata"
 Oringnal_Path="D:\大2功課\python"
 Dataset_Path = "D:\大學專題\洗手實做\HandWashDataset\HandWashDataset"
-Category_Name=["\Step_1","\Step_2_Left"]
+Category_Name=["\Step_1","\Step_2_Left","\Step_2_Right"]
 Video_Path=Dataset_Path+Category_Name[0]
 
 #  set frameRate
     #  frameRate = cap.get(5) # 原本影片1s ?張
-frameRate =2 # 1s 16偵 根據: https://www.itread01.com/content/1546997061.html
+frameRate =1 # 1s 16偵 根據: https://www.itread01.com/content/1546997061.html
 category=0 #3秒為一個訓練資料的count
 count = 0 #一個影片的count
-One_X_secs = 32 # 16* ?? 秒
+One_X_secs = 8 # 16* ?? 秒
 all_category_counter=0 #所有類別的影片的count
 frame_name=0 
 # read every Category_name 先設類別
@@ -50,13 +50,14 @@ for name in Category_Name:
                 count+=1
         cap.release()
         os.chdir(Oringnal_Path) #跳回原本目錄位置
-        if(count%(One_X_secs-1) !=0): #delet not full folder
-            print(category-all_category_counter)#一個影片被有效擷取的段數
+        print(count)
+        if(count%One_X_secs !=0): #delet not full folder
             delet_folser_path= "D:\\大學專題\\洗手實做\\Traindata\\%d" % category  
             shutil.rmtree(delet_folser_path)
             all_category_counter=category #next time start folder
+            print(all_category_counter)#all video 被分成幾個輸入
         else:#folder is full 48(3s)
-            print(category-all_category_counter+1)#一個影片被有效擷取的段數 +1是因為category從0開始算
             all_category_counter=category+1
+            print(all_category_counter)  #all video 被分成幾個輸入
     print(all_category_counter) #all video 被分成幾個輸入 從 0~ all_category_counter-1
 os.chdir(Oringnal_Path)  
