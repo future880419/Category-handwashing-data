@@ -10,9 +10,9 @@ from skimage.transform import resize   # for resizing images
 import shutil
 import os
 from sklearn.model_selection import train_test_split
-Path="D:\大學專題\洗手實做\Traindata"
+Path="D:\大學專題\洗手實做\Testdata"
 OringnalPath="D:\大2功課\python"
-total_video=10012
+total_video=4389
 One_X_secs = 8
 Merge_One_X_secs = One_X_secs*2
 
@@ -27,7 +27,7 @@ for category in range(0,total_video,1):
     correct_path=Path+"\%d" % category
     os.chdir(correct_path)#shutil.move(filename,path) #跳目錄位置，跳到存放照片的地方
     for number in range(0,One_X_secs,1):
-        filename ="frame%d.jpg" % number#set檔名  
+        filename ="frame%d.jpg" % number#set檔名   
         X_train_notran[category][number]= cv2.imread(filename)
     if(category>0):
         Merge_x_train[category-1]=np.concatenate((X_train_notran[category], X_train_notran[category-1]))
@@ -50,27 +50,27 @@ print(X_train.shape)
 
 # set y data 
 for i in range(0,total_video-1,1):
-    if(y_train[i]>=9318):
+    if(y_train[i]>=4065):
         y_train[i]=11
-    elif(y_train[i]>=8625 and y_train[i]<9318):
+    elif(y_train[i]>=3718 and y_train[i]<4065):
         y_train[i]=10
-    elif(y_train[i]>=7898 and y_train[i]<8625):
+    elif(y_train[i]>=3403 and y_train[i]<3718):
         y_train[i]=9
-    elif(y_train[i]>=7114 and y_train[i]<7898):
+    elif(y_train[i]>=3043 and y_train[i]<3403):
         y_train[i]=8
-    elif(y_train[i]>=6270 and y_train[i]<7114):
+    elif(y_train[i]>=2671 and y_train[i]<3043):
         y_train[i]=7
-    elif(y_train[i]>=5433 and y_train[i]<6270):
+    elif(y_train[i]>=2243 and y_train[i]<2671):
         y_train[i]=6
-    elif(y_train[i]>=4565 and y_train[i]<5433):
+    elif(y_train[i]>=1895 and y_train[i]<2243):
         y_train[i]=5
-    elif(y_train[i]>=3645 and y_train[i]<4565):
+    elif(y_train[i]>=1452 and y_train[i]<1895):
         y_train[i]=4
-    elif(y_train[i]>=2759 and y_train[i]<3645):
+    elif(y_train[i]>=1126 and y_train[i]<1452):
         y_train[i]=3
-    elif(y_train[i]>=1895 and y_train[i]<2759):
+    elif(y_train[i]>=780 and y_train[i]<1126):
         y_train[i]=2
-    elif(y_train[i]>=1018 and y_train[i]<1895):
+    elif(y_train[i]>=441 and y_train[i]<780):
         y_train[i]=1
     else:
         y_train[i]=0
@@ -84,11 +84,11 @@ print(y_train)
 
 #save data in "D:\大2功課\python"
 os.chdir(OringnalPath)
-np.save('my_X_train', X_train)
-#np.save('my_X_valid', X_train)
-np.save('my_y_train', y_train)
-#np.save('my_y_valid', y_train)
-
+#np.save('my_X_train', X_train)
+np.save('my_X_valid', X_train)
+#np.save('my_y_train', y_train)
+np.save('my_y_valid', y_train)
+print("down")
 
 
 '''
