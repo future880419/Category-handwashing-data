@@ -8,8 +8,10 @@ from keras.preprocessing import image   # for preprocessing the images
 #  set dir_path
 Traindata_Path="D:\大學專題\洗手實做\Traindata"
 Oringnal_Path="D:\大2功課\python"
-Dataset_Path = "D:\大學專題\洗手實做\HandWashDataset\HandWashDataset"
-Category_Name=["\Step_1","\Step_2_Left","\Step_2_Right"]
+Dataset_Path = "D:\大學專題\洗手實做\HandWashDataset\For_train"
+Category_Name=["\Step_1","\Step_2_Left","\Step_2_Right","\Step_3","\Step_4_Left","\Step_4_Right",
+"\Step_5_Left","\Step_5_Right","\Step_6_Left","\Step_6_Right","\Step_7_Left","\Step_7_Right"]
+cut_counter=[]
 Video_Path=Dataset_Path+Category_Name[0]
 
 #  set frameRate
@@ -48,9 +50,8 @@ for name in Category_Name:
                 filename ="frame%d.jpg" %frame_name#set檔名
                 cv2.imwrite(filename, frame)    #將照片寫入
                 count+=1
-        cap.release()
+        cap.release() 
         os.chdir(Oringnal_Path) #跳回原本目錄位置
-        print(count)
         if(count%One_X_secs !=0): #delet not full folder
             delet_folser_path= "D:\\大學專題\\洗手實做\\Traindata\\%d" % category  
             shutil.rmtree(delet_folser_path)
@@ -60,4 +61,6 @@ for name in Category_Name:
             all_category_counter=category+1
             print(all_category_counter)  #all video 被分成幾個輸入
     print(all_category_counter) #all video 被分成幾個輸入 從 0~ all_category_counter-1
+    cut_counter.append(all_category_counter)
+print(cut_counter)
 os.chdir(Oringnal_Path)  
